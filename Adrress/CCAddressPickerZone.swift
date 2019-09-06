@@ -50,7 +50,9 @@ class CCAddressPickerZone: UIView , UICollectionViewDelegateFlowLayout, UICollec
     }
     
     func reloadFrom(_ index:Int){
-        self.collectionView.reloadData()
+        if index < (self.provider?.numberOfLevels())!{
+            self.collectionView.insertItems(at: [IndexPath(row: index, section: 0)])
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

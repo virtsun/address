@@ -78,11 +78,12 @@ class CCAddressPicker: UIView {
         self.contentView.addSubview(self.zone)
         self.contentView.addSubview(self.separator)
         
-        self.provider.selectedAddressUpdate = {level in
-                     self.navigaton.collectionView.reloadData()
-                     self.zone.reloadFrom(level)
+        self.provider.addressUpdateBlock = {level in
+            self.navigaton.collectionView.reloadData()
         }
-        
+        self.provider.addressInsertBlock = {level in
+            self.zone.reloadFrom(level)
+        }
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChanged(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChanged(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)

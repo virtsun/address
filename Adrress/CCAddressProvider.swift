@@ -9,6 +9,8 @@
 import UIKit
 
 typealias AddressUpdateBlock = (Int)->Void
+typealias AddressInsertBlock = (Int)->Void
+
 typealias AddressPickOver = ([CCAddressObject])->Void
 
 struct CCAddressObject : Equatable {
@@ -29,7 +31,10 @@ struct CCAddressObject : Equatable {
 class CCAddressProvider: NSObject {
     var maxlevel = 3
     var selectedAddress:[Int:CCAddressObject] = [:]
-    var selectedAddressUpdate:AddressUpdateBlock?
+    
+    var addressUpdateBlock:AddressUpdateBlock?
+    var addressInsertBlock:AddressInsertBlock?
+
     var pickOver:AddressPickOver?
 
     @objc dynamic var currentLevel:Int = 0
@@ -47,6 +52,7 @@ class CCAddressProvider: NSObject {
         }else{
             selectedAddress[level] = CCAddressObject("请选择", code: "0", superCode: "0")
         }
+        self.addressInsertBlock?(level)
     }
     func updateLevel(_ level:Int, address:CCAddressObject){
 
@@ -58,7 +64,7 @@ class CCAddressProvider: NSObject {
         if level + 1 < maxlevel{
             self.push(level+1)
         }
-        selectedAddressUpdate?(level)
+        addressUpdateBlock?(level)
         
         if (level + 1 < maxlevel){
             self.currentLevel = level + 1
