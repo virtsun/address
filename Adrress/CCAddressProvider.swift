@@ -29,18 +29,26 @@ struct CCAddressObject : Equatable {
 }
 
 class CCAddressProvider: NSObject {
-    var maxlevel = 3
+    var maxlevel = 4
     var selectedAddress:[Int:CCAddressObject] = [:]
     
     var addressUpdateBlock:AddressUpdateBlock?
     var addressInsertBlock:AddressInsertBlock?
+//    var addressDeleteBlock:AddressInsertBlock?
 
     var pickOver:AddressPickOver?
 
     @objc dynamic var currentLevel:Int = 0
 
+    deinit {
+        SQManger.shareInstence().close()
+    }
     override init() {
         super.init()
+        
+        if SQManger.shareInstence().openDB(){
+            print("开始")
+        }
         
         self.push(0)
     }
@@ -88,40 +96,31 @@ class CCAddressProvider: NSObject {
         return selectedAddress.count
     }
     
-    func fetchAddrresBy(_ object:CCAddressObject) -> [CCAddressObject] {
-        let addresss = [
-            CCAddressObject("北京", code: "1", superCode: "0"),
-            CCAddressObject("上海", code: "1", superCode: "0"),
-            CCAddressObject("天津", code: "1", superCode: "0"),
-            CCAddressObject("重庆", code: "1", superCode: "0"),
-            CCAddressObject("河北省", code: "1", superCode: "0"),
-            CCAddressObject("黑龙江", code: "1", superCode: "0"),
-            CCAddressObject("吉林省", code: "1", superCode: "0"),
-            CCAddressObject("河南省", code: "1", superCode: "0"),
-            CCAddressObject("湖南省", code: "1", superCode: "0"),
-            CCAddressObject("湖北省", code: "1", superCode: "0"),
-            CCAddressObject("浙江省", code: "1", superCode: "0"),
-            CCAddressObject("江苏省", code: "1", superCode: "0"),
-            
-            CCAddressObject("昌平", code: "2", superCode: "1"),
-            CCAddressObject("海淀", code: "2", superCode: "1"),
-        
-            CCAddressObject("闽兴", code: "3", superCode: "2"),
-            CCAddressObject("外滩", code: "3", superCode: "2"),
-            CCAddressObject("a", code: "3", superCode: "2"),
-            CCAddressObject("b", code: "3", superCode: "2"),
-        
-            CCAddressObject("c", code: "3", superCode: "2"),
-            CCAddressObject("d", code: "3", superCode: "2"),
-        
-            CCAddressObject("e", code: "3", superCode: "2"),
-            CCAddressObject("f", code: "3", superCode: "2"),
-        
-            CCAddressObject("g", code: "3", superCode: "2"),
-            CCAddressObject("h", code: "3", superCode: "2")]
-        
-        return addresss.filter { (obj) -> Bool in
-            return obj.superCode == object.superCode
-        }
+    func fetchAddrresBy(_ object:CCAddressObject, level:Int, picker:AddressPickOver?){
+        picker?(address(object, level:level))
     }
+    
+}
+
+extension CCAddressProvider{
+    func address(_ object:CCAddressObject, level : Int) -> [CCAddressObject] {
+        if level == 0{
+            let sql = "SELECT PROVINCE_NAME, PROVINCE_CODE,PROVINCE_CODE FROM bs_province"
+            let arr = SQManger.shareInstence().querySql(sql: sql)
+            return arr as! [CCAddressObject]
+        }else if level == 1{
+            let sql = "SELECT CITY_NAME, CITY_CODE,PROVINCE_CODE FROM bs_city where PROVINCE_CODE =" + object.superCode!
+            let arr = SQManger.shareInstence().querySql(sql: sql)
+            return arr as! [CCAddressObject]
+        }else if level == 2{
+            let sql = "SELECT AREA_NAME, AREA_CODE,CITY_CODE FROM bs_area where CITY_CODE =" + object.superCode!
+            let arr = SQManger.shareInstence().querySql(sql: sql)
+            return arr as! [CCAddressObject]
+        }else if level == 3{
+            let sql = "SELECT STREET_NAME,STREET_CODE, AREA_CODE FROM bs_street where AREA_CODE =" + object.superCode!
+            let arr = SQManger.shareInstence().querySql(sql: sql)
+            return arr as! [CCAddressObject]
+        }
+        return []
+       }
 }

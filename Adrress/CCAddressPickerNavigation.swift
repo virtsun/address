@@ -86,6 +86,8 @@ class CCAddressPickerNavigation: UIView, UICollectionViewDelegateFlowLayout, UIC
         cv.delegate = self
         cv.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         cv.register(CCAddressPickerNavigationCell.classForCoder(), forCellWithReuseIdentifier: "apNavigation")
+        cv.showsHorizontalScrollIndicator = false
+        
         return cv
     }()
     

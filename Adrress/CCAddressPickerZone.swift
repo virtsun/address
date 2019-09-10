@@ -50,16 +50,24 @@ class CCAddressPickerZone: UIView , UICollectionViewDelegateFlowLayout, UICollec
     }
     
     func reloadFrom(_ index:Int){
-        if index < (self.provider?.numberOfLevels())!{
+        if index >= self.collectionView.numberOfItems(inSection: 0){
             self.collectionView.insertItems(at: [IndexPath(row: index, section: 0)])
+        }else{
+            self.collectionView.reloadData()
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "zone", for: indexPath) as! CCAddressPickerZoneCell
         cell.provider = provider
         cell.level = indexPath.row
-        cell.list = provider?.fetchAddrresBy((provider?.levelSelected(indexPath.row))!)
+       
+        let obj = (provider?.levelSelected(indexPath.row))!
+        weak var wCell = cell
+        provider?.fetchAddrresBy(obj, level: cell.level, picker: { (a) in
+            wCell?.list = a
+        })
         
         return cell
     }

@@ -52,7 +52,7 @@ class CCAddressPicker: UIView {
         return btn
     }()
     
-    var provider = CCAddressProvider()
+    lazy var provider = CCAddressProvider()
     var pickOver:AddressPickOver?{
         didSet{
             self.provider.pickOver = self.pickOver
@@ -96,7 +96,6 @@ class CCAddressPicker: UIView {
         NotificationCenter.default.removeObserver(self)
     }
     
-    
     var maskGView : UIView = {
                    let contentView = UIView()
         contentView.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
@@ -105,11 +104,21 @@ class CCAddressPicker: UIView {
                     return contentView
                 }()
     
+    func topController() -> UIViewController? {
+        var top : UIResponder? = self.next
+        
+        while top != nil {
+            if top?.isKind(of: UIViewController.classForCoder()) ?? false{
+                return top as? UIViewController
+            }
+            top = top?.next
+        }
+        return nil
+    }
     
     @objc
     func keyboardWillChanged(_ notification: Notification){
         
-  
         let peripheralHostView = UIApplication.shared.windows.last?.subviews.last
         var InputSetHostView:UIView?
         let b = peripheralHostView?.isKind(of: NSClassFromString("UIInputSetContainerView")!) ?? false
@@ -130,7 +139,7 @@ class CCAddressPicker: UIView {
                 
                 InputSetHostView?.subviews.first?.alpha = 1
             }else{
-                self.source?.superview?.addSubview(self.maskGView)
+                self.topController()?.view?.addSubview(self.maskGView)
                 UIView.animate(withDuration: 0.3) {
                     self.maskGView.alpha = 1.0
                 }

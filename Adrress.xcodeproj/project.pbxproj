@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F178EF3B23279AF600506D86 /* SQManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F178EF3A23279AF600506D86 /* SQManger.swift */; };
+		F178EF3D2327A20E00506D86 /* address.db in Resources */ = {isa = PBXBuildFile; fileRef = F178EF3C23279B8200506D86 /* address.db */; };
 		F1A1B132231F9744000C4FAD /* CCAddressProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A1B131231F9744000C4FAD /* CCAddressProvider.swift */; };
 		F1BFD7AA231F9354008E0DB2 /* CCAddressPickerZoneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BFD7A9231F9354008E0DB2 /* CCAddressPickerZoneCell.swift */; };
 		F1E874E9231F96B40092570C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E874E8231F96B40092570C /* SceneDelegate.swift */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F178EF3A23279AF600506D86 /* SQManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQManger.swift; sourceTree = "<group>"; };
+		F178EF3C23279B8200506D86 /* address.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = address.db; sourceTree = "<group>"; };
 		F1A1B131231F9744000C4FAD /* CCAddressProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCAddressProvider.swift; sourceTree = "<group>"; };
 		F1BFD7A9231F9354008E0DB2 /* CCAddressPickerZoneCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCAddressPickerZoneCell.swift; sourceTree = "<group>"; };
 		F1E874E8231F96B40092570C /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,11 +77,13 @@
 				F1FC5F49231F63D600390539 /* Assets.xcassets */,
 				F1FC5F4B231F63D600390539 /* LaunchScreen.storyboard */,
 				F1FC5F4E231F63D600390539 /* Info.plist */,
+				F178EF3C23279B8200506D86 /* address.db */,
 				F1FC5F54231F868900390539 /* CCAddressPicker.swift */,
 				F1FC5F56231F86BE00390539 /* CCAddressPickerNavigation.swift */,
 				F1FC5F58231F86D800390539 /* CCAddressPickerZone.swift */,
 				F1BFD7A9231F9354008E0DB2 /* CCAddressPickerZoneCell.swift */,
 				F1A1B131231F9744000C4FAD /* CCAddressProvider.swift */,
+				F178EF3A23279AF600506D86 /* SQManger.swift */,
 			);
 			path = Adrress;
 			sourceTree = "<group>";
@@ -140,6 +146,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F178EF3D2327A20E00506D86 /* address.db in Resources */,
 				F1FC5F4D231F63D600390539 /* LaunchScreen.storyboard in Resources */,
 				F1FC5F4A231F63D600390539 /* Assets.xcassets in Resources */,
 				F1FC5F48231F63D500390539 /* Main.storyboard in Resources */,
@@ -157,6 +164,7 @@
 				F1A1B132231F9744000C4FAD /* CCAddressProvider.swift in Sources */,
 				F1E874E9231F96B40092570C /* SceneDelegate.swift in Sources */,
 				F1FC5F41231F63D500390539 /* AppDelegate.swift in Sources */,
+				F178EF3B23279AF600506D86 /* SQManger.swift in Sources */,
 				F1FC5F55231F868900390539 /* CCAddressPicker.swift in Sources */,
 				F1BFD7AA231F9354008E0DB2 /* CCAddressPickerZoneCell.swift in Sources */,
 				F1FC5F57231F86BE00390539 /* CCAddressPickerNavigation.swift in Sources */,
@@ -307,13 +315,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C7T7CP7NSK;
 				INFOPLIST_FILE = Adrress/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jfbank.wankaNew.Adrress;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -325,13 +334,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C7T7CP7NSK;
 				INFOPLIST_FILE = Adrress/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jfbank.wankaNew.Adrress;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

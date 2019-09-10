@@ -13,6 +13,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.view.backgroundColor = UIColor.white
         
         let textfield = UITextField()
         textfield.placeholder = "选择地址"
